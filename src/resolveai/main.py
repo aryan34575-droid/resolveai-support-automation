@@ -34,12 +34,11 @@ def main() -> int:
             result["observed_ticket"].update({
                 "issue_number": issue.get("number"),
                 "title": issue.get("title"),
-                "body": issue.get("body"),
                 "labels": [label.get("name") for label in issue.get("labels", []) if isinstance(label, dict)],
                 "url": issue.get("html_url"),
             })
             results.append(result)
-        report = render_public_report(results) if args.public_report else render_report(results)
+        report = render_public_report(results, client.repository) if args.public_report else render_report(results)
         print(report)
     except (GitHubAPIError, ValueError) as exc:
         print(json.dumps({"status": "github_api_error", "errors": [str(exc)]}))

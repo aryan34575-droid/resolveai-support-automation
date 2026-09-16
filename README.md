@@ -51,7 +51,7 @@ The static dashboard is published through GitHub Pages:
 
 https://aryan34575-droid.github.io/resolveai-support-automation/
 
-`dashboard.yml` runs on manual dispatch, weekly schedule, and Issue opened/edited/reopened events. It analyzes Issues, writes a sanitized `docs/report.json`, and deploys `docs/` through Pages. The public report excludes Issue bodies, customer messages, labels, and credentials. The dashboard is informational only; it does not call GitHub APIs from browser code.
+`resolveai.yml` runs on manual dispatch, weekly schedule, and Issue opened/edited/reopened events. It analyzes Issues, writes a sanitized `docs/report.json`, and deploys `docs/` through Pages. The public report excludes Issue bodies, customer messages, labels, and credentials. The dashboard is informational only; it does not call GitHub APIs from browser code.
 
 ## Exact GitHub deployment steps
 

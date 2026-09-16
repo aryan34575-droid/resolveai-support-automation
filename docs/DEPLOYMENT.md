@@ -16,4 +16,4 @@ The dashboard is available at:
 
 https://aryan34575-droid.github.io/resolveai-support-automation/
 
-The `dashboard.yml` workflow runs for manual dispatch, weekly schedule, and Issue opened/edited/reopened events. It uses `issues: read` to analyze Issues, `contents: write` only to persist the sanitized `docs/report.json`, and `pages: write` plus `id-token: write` to deploy the static site. Browser code only fetches the public `report.json`; it never receives or uses `GITHUB_TOKEN`.
+The `resolveai.yml` workflow runs for manual dispatch, weekly schedule, and Issue opened/edited/reopened events. It uses `issues: read` to analyze Issues, `contents: write` only to persist the sanitized `docs/report.json`, and `pages: write` plus `id-token: write` to deploy the static site. Browser code only fetches the public `report.json`; it never receives or uses `GITHUB_TOKEN`.

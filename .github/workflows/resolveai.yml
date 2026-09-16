@@ -1,4 +1,4 @@
-name: ResolveAI dashboard
+name: ResolveAI analysis and dashboard
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: resolveai-dashboard
+  group: resolveai-pages
   cancel-in-progress: true
 
 jobs:
@@ -34,9 +34,11 @@ jobs:
       - run: python -m pip install -r requirements.txt
       - run: python -m compileall .
       - run: python -m pytest -q
-      - name: Analyze Issues into safe public report
+      - name: Generate safe public report
         run: python -m src.main --github-issues --since-days 30 --public-report > docs/report.json
-      - name: Persist safe report
+      - name: Validate generated report
+        run: python -c "import json; r=json.load(open('docs/report.json', encoding='utf-8')); assert r['report_type']=='public_dashboard'; assert isinstance(r['issues'], list)"
+      - name: Persist changed report
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -51,6 +53,6 @@ jobs:
       - uses: actions/upload-pages-artifact@v4
         with:
           path: docs
-      - name: Deploy dashboard
+      - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

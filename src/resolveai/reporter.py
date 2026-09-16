@@ -9,7 +9,7 @@ def render_report(results: Iterable[Dict[str, Any]]) -> str:
     return json.dumps({"tool": "ResolveAI", "report_type": "analysis_only", "results": list(results)}, indent=2)
 
 
-def render_public_report(results: Iterable[Dict[str, Any]]) -> str:
+def render_public_report(results: Iterable[Dict[str, Any]], repository: str | None = None) -> str:
     """Render a dashboard-safe report without ticket bodies or customer data."""
     safe_results = []
     category_counts: Dict[str, int] = {}
@@ -31,6 +31,8 @@ def render_public_report(results: Iterable[Dict[str, Any]]) -> str:
         safe_results.append({
             "issue_number": issue_number,
             "issue_label": f"Issue #{issue_number}" if issue_number is not None else "Issue",
+            "title": observed.get("title", "Untitled issue"),
+            "url": observed.get("url"),
             "category": category,
             "priority": priority,
             "sentiment": sentiment,
@@ -54,7 +56,10 @@ def render_public_report(results: Iterable[Dict[str, Any]]) -> str:
         "tool": "ResolveAI",
         "report_type": "public_dashboard",
         "safety": "ResolveAI analysis — read-only",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "last_analysis": datetime.now(timezone.utc).isoformat(),
+        "repository": repository or "unknown",
+        "status": "analysis_complete",
         "summary": {
             "issues_analyzed": len(safe_results),
             "high_or_urgent": sum(item["priority"] in ("high", "urgent") for item in safe_results),
@@ -66,7 +71,16 @@ def render_public_report(results: Iterable[Dict[str, Any]]) -> str:
             "sentiments": sentiment_counts,
             "teams": team_counts,
         },
+        "total_issues": len(safe_results),
+        "high_priority_count": sum(item["priority"] == "high" for item in safe_results),
+        "urgent_count": sum(item["priority"] == "urgent" for item in safe_results),
+        "human_review_count": sum(item["human_review_required"] for item in safe_results),
+        "category_summary": category_counts,
+        "priority_summary": priority_counts,
+        "sentiment_summary": sentiment_counts,
+        "team_summary": team_counts,
         "results": safe_results,
+        "issues": safe_results,
     }
     return json.dumps(report, indent=2)
 

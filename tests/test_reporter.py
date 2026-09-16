@@ -24,5 +24,7 @@ def test_public_report_excludes_ticket_content():
     }]))
     assert report["summary"]["issues_analyzed"] == 1
     assert report["results"][0]["issue_label"] == "Issue #7"
+    assert report["total_issues"] == 1
+    assert report["issues"][0]["title"] == "Untitled issue"
     assert "private customer message" not in json.dumps(report)
     assert "private title" not in json.dumps(report)
