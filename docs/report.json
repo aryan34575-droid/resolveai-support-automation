@@ -2,7 +2,10 @@
   "tool": "ResolveAI",
   "report_type": "public_dashboard",
   "safety": "ResolveAI analysis \u2014 read-only",
-  "last_analysis": "2026-09-16T06:26:34.142310+00:00",
+  "generated_at": "2026-09-16T06:31:16.029518+00:00",
+  "last_analysis": "2026-09-16T06:31:16.029535+00:00",
+  "repository": "aryan34575-droid/resolveai-support-automation",
+  "status": "analysis_complete",
   "summary": {
     "issues_analyzed": 0,
     "high_or_urgent": 0,
@@ -14,5 +17,14 @@
     "sentiments": {},
     "teams": {}
   },
-  "results": []
+  "total_issues": 0,
+  "high_priority_count": 0,
+  "urgent_count": 0,
+  "human_review_count": 0,
+  "category_summary": {},
+  "priority_summary": {},
+  "sentiment_summary": {},
+  "team_summary": {},
+  "results": [],
+  "issues": []
 }
