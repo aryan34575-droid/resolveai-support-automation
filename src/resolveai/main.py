@@ -14,7 +14,7 @@ from .reporter import render_report
 def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze support tickets without external side effects")
     parser.add_argument("--input", help="JSON file; defaults to stdin")
-    parser.add_argument("--github-issues", action="store_true", help="analyze open GitHub Issues using GITHUB_TOKEN")
+    parser.add_argument("--github-issues", action="store_true", help="analyze open GitHub Issues; token optional for public repositories")
     parser.add_argument("--since-days", type=int, default=None, help="only include Issues updated within this many days")
     args = parser.parse_args()
     engine = ResolveAI()

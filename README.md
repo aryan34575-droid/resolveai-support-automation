@@ -37,7 +37,7 @@ python -m compileall .
 python -m pytest -q
 ```
 
-`test_data/synthetic_tickets.json` is clearly labelled synthetic and is never presented as company data. GitHub Actions receives the automatic repository-provided `${{ secrets.GITHUB_TOKEN }}`; no manually entered token or repository secret configuration is needed for Actions. Local GitHub API execution requires authentication supplied by the local environment; this is not needed in GitHub Actions.
+`test_data/synthetic_tickets.json` is clearly labelled synthetic and is never presented as company data. Local GitHub API execution supports public repositories without a token. GitHub Actions uses its automatically provided `GITHUB_TOKEN`. Tokenless local mode is read-only and subject to GitHub's unauthenticated API rate limits. Private repositories require authentication.
 
 ## GitHub Actions and permissions
 

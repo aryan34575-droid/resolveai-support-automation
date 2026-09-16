@@ -18,10 +18,12 @@ class GitHubClient:
         self.base_url = "https://api.github.com"
 
     def _request(self, method: str, path: str, body: Optional[Dict[str, Any]] = None) -> Any:
-        if not self.token:
-            raise GitHubAPIError("Local GitHub API mode requires a GitHub token. GitHub Actions mode requires no manual token.")
+        method = method.upper()
+        if not self.token and method != "GET":
+            raise GitHubAPIError("Tokenless mode permits read-only GET requests only.")
         request = urllib.request.Request(self.base_url + path, method=method)
-        request.add_header("Authorization", "Bearer " + self.token)
+        if self.token:
+            request.add_header("Authorization", "Bearer " + self.token)
         request.add_header("Accept", "application/vnd.github+json")
         request.add_header("X-GitHub-Api-Version", "2022-11-28")
         if body is not None:
@@ -31,8 +33,17 @@ class GitHubClient:
             with urllib.request.urlopen(request, timeout=self.timeout) as response:
                 return json.loads(response.read().decode())
         except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
-            if isinstance(exc, urllib.error.HTTPError) and exc.code == 429:
-                raise GitHubAPIError("GitHub API rate limit exceeded") from exc
+            if isinstance(exc, urllib.error.HTTPError):
+                if exc.code in (403, 429):
+                    raise GitHubAPIError(
+                        "GitHub anonymous API rate limit or access restriction was reached."
+                    ) from exc
+                if exc.code == 404 and not self.token:
+                    raise GitHubAPIError(
+                        "Tokenless local mode requires a public repository."
+                    ) from exc
+                if exc.code == 404:
+                    raise GitHubAPIError("GitHub repository or resource was not found.") from exc
             raise GitHubAPIError(f"GitHub API request failed: {type(exc).__name__}") from exc
 
     def _repo_path(self) -> str:
