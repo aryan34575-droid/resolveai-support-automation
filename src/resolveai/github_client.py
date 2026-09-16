@@ -19,7 +19,7 @@ class GitHubClient:
 
     def _request(self, method: str, path: str, body: Optional[Dict[str, Any]] = None) -> Any:
         if not self.token:
-            raise GitHubAPIError("GITHUB_TOKEN is not configured")
+            raise GitHubAPIError("Local GitHub API mode requires a GitHub token. GitHub Actions mode requires no manual token.")
         request = urllib.request.Request(self.base_url + path, method=method)
         request.add_header("Authorization", f"Bearer {self.token}")
         request.add_header("Accept", "application/vnd.github+json")
@@ -84,13 +84,3 @@ class GitHubClient:
 
     def list_pull_requests(self, state: str = "open", limit: int = 30) -> List[Dict[str, Any]]:
         return self._request("GET", f"/repos/{self._repo_path()}/pulls?state={state}&per_page={min(limit, 100)}")
-
-    def create_report_issue(self, title: str, body: str, explicitly_enabled: bool = False, approved: bool = False) -> Dict[str, Any]:
-        if not explicitly_enabled or not approved:
-            raise GitHubAPIError("write operation disabled; explicit enablement and human approval are required")
-        return self._request("POST", f"/repos/{self._repo_path()}/issues", {"title": title, "body": body})
-
-    def add_issue_comment(self, issue_number: int, body: str, explicitly_enabled: bool = False, approved: bool = False) -> Dict[str, Any]:
-        if not explicitly_enabled or not approved:
-            raise GitHubAPIError("write operation disabled; explicit enablement and human approval are required")
-        return self._request("POST", f"/repos/{self._repo_path()}/issues/{issue_number}/comments", {"body": body})

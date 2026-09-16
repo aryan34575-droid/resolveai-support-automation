@@ -4,13 +4,8 @@ from src.resolveai.pipeline import ResolveAI
 
 
 def test_missing_github_token():
-    with pytest.raises(GitHubAPIError, match="GITHUB_TOKEN"):
+    with pytest.raises(GitHubAPIError, match="Local GitHub API mode requires a GitHub token"):
         GitHubClient(None, "owner/repo").list_issues()
-
-
-def test_writes_require_explicit_approval():
-    with pytest.raises(GitHubAPIError, match="human approval"):
-        GitHubClient("token", "owner/repo").create_report_issue("title", "body", explicitly_enabled=True)
 
 
 def test_github_issue_conversion_and_similar_references():

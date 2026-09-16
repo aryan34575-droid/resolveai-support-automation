@@ -14,15 +14,13 @@ from .reporter import render_report
 def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze support tickets without external side effects")
     parser.add_argument("--input", help="JSON file; defaults to stdin")
-    parser.add_argument("--approved", action="store_true", help="record explicit human approval for safe recommendations")
     parser.add_argument("--github-issues", action="store_true", help="analyze open GitHub Issues using GITHUB_TOKEN")
     parser.add_argument("--since-days", type=int, default=None, help="only include Issues updated within this many days")
-    parser.add_argument("--publish-report-issue", action="store_true", help="create a GitHub report Issue; requires explicit opt-in")
     args = parser.parse_args()
     engine = ResolveAI()
     if not args.github_issues:
         raw = open(args.input, encoding="utf-8").read() if args.input else sys.stdin.read()
-        print(json.dumps(engine.process_json(raw, args.approved), indent=2))
+        print(json.dumps(engine.process_json(raw), indent=2))
         return 0
     client = GitHubClient(os.getenv("GITHUB_TOKEN"), os.getenv("GITHUB_REPOSITORY"))
     try:
@@ -41,8 +39,6 @@ def main() -> int:
             })
             results.append(result)
         report = render_report(results)
-        if args.publish_report_issue:
-            client.create_report_issue("ResolveAI analysis report", report, explicitly_enabled=True, approved=args.approved)
         print(report)
     except (GitHubAPIError, ValueError) as exc:
         print(json.dumps({"status": "github_api_error", "errors": [str(exc)]}))

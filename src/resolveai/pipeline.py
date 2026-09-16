@@ -35,7 +35,7 @@ class ResolveAI:
             "channel": ticket.channel,
         }
 
-    def process(self, raw_ticket: Dict[str, Any], approved: bool = False) -> AnalysisResult:
+    def process(self, raw_ticket: Dict[str, Any]) -> AnalysisResult:
         ticket_id = raw_ticket.get("ticket_id", "unknown") if isinstance(raw_ticket, dict) else "unknown"
         with Stage(self.logger, str(ticket_id), "validation"):
             ticket = Ticket.from_dict(raw_ticket)
@@ -48,8 +48,6 @@ class ResolveAI:
         result = AnalysisResult(**values, similar_tickets=similar, knowledge_references=knowledge,
                                 suggested_response=self._draft(values["category"]),
                                 observed_ticket=self._observed(ticket))
-        if approved and not result.human_review_required:
-            result.review_reasons.append("approval recorded; external writes remain disabled by default")
         return result
 
     def process_ticket(self, ticket: Ticket, similar_tickets=None, knowledge_references=None) -> AnalysisResult:
@@ -59,12 +57,12 @@ class ResolveAI:
                               suggested_response=self._draft(values["category"]),
                               observed_ticket=self._observed(ticket))
 
-    def process_json(self, raw_json: str, approved: bool = False) -> Dict[str, Any]:
+    def process_json(self, raw_json: str) -> Dict[str, Any]:
         try:
             data = json.loads(raw_json)
         except json.JSONDecodeError as exc:
             return {"status": "invalid", "errors": [f"malformed JSON: {exc.msg}"]}
         try:
-            return {"status": "awaiting_approval", "analysis": self.process(data, approved).to_dict()}
+            return {"status": "awaiting_approval", "analysis": self.process(data).to_dict()}
         except (ValueError, TypeError) as exc:
             return {"status": "invalid", "errors": [str(exc)]}
