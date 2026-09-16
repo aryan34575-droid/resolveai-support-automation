@@ -1,0 +1,38 @@
+[
+  {
+    "synthetic_test_data": true,
+    "number": 1001,
+    "title": "Charged twice for invoice",
+    "body": "I was charged twice for my invoice.",
+    "labels": ["synthetic"],
+    "created_at": "2026-01-02T10:00:00Z",
+    "url": "https://example.invalid/synthetic/1001",
+    "expected_category": "billing",
+    "expected_priority": "high",
+    "expected_team": "Billing"
+  },
+  {
+    "synthetic_test_data": true,
+    "number": 1002,
+    "title": "Unauthorized account access",
+    "body": "There may have been an unauthorized login.",
+    "labels": ["synthetic", "security"],
+    "created_at": "2026-01-02T10:01:00Z",
+    "url": "https://example.invalid/synthetic/1002",
+    "expected_category": "security",
+    "expected_priority": "urgent",
+    "expected_team": "Security"
+  },
+  {
+    "synthetic_test_data": true,
+    "number": 1003,
+    "title": "Something happened",
+    "body": "",
+    "labels": ["synthetic"],
+    "created_at": "2026-01-02T10:02:00Z",
+    "url": "https://example.invalid/synthetic/1003",
+    "expected_category": "other",
+    "expected_priority": "low",
+    "expected_team": "Operations"
+  }
+]

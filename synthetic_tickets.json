@@ -1,0 +1,5 @@
+[
+  {"ticket_id":"SYN-001","customer_message":"I was charged twice for my invoice.","created_at":"2026-01-02T10:00:00Z","product":"Demo","channel":"email","expected_category":"billing","expected_priority":"high","expected_team":"Billing"},
+  {"ticket_id":"SYN-002","customer_message":"I cannot log in because the password reset email never arrived.","created_at":"2026-01-02T10:01:00Z","product":"ResolveAI Demo","channel":"web","expected_category":"account","expected_priority":"high","expected_team":"Account Support"},
+  {"ticket_id":"SYN-003","customer_message":"My package tracking has not updated and delivery is delayed.","created_at":"2026-01-02T10:02:00Z","product":"Demo","channel":"chat","expected_category":"shipping","expected_priority":"medium","expected_team":"Logistics"}
+]
