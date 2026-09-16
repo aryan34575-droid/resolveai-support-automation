@@ -45,6 +45,24 @@ python -m pytest -q
 
 Run **Actions -> ResolveAI manual test -> Run workflow**, then download the JSON artifact. Leave Actions enabled for weekly execution. See `docs/DEPLOYMENT.md`.
 
+## Exact GitHub deployment steps
+
+From an authenticated computer with GitHub CLI installed:
+
+```powershell
+gh auth login
+gh repo create resolveai-support-automation --public --description "Free-first AI support-ticket automation system for GitHub Issues with local NLP classification, triage, routing and human approval" --source . --remote origin --push
+```
+
+If the repository already exists or `gh` is unavailable:
+
+```powershell
+git remote add origin https://github.com/<OWNER>/resolveai-support-automation.git
+git push -u origin main
+```
+
+Then enable Actions, confirm `contents: read` and `issues: read` under repository workflow permissions, run **Actions -> ResolveAI manual test -> Run workflow**, and download `resolveai-manual-report`. Verify the report contains Issue observations and separate recommendations. Leave Actions enabled and verify the weekly scheduled run under the Actions tab.
+
 ## Security and limitations
 
 The built-in token is never logged. Logs omit Issue bodies, payment details, passwords, API keys, and unnecessary personal information. API failures, malformed responses, timeouts, and rate limits are surfaced safely. Security, urgent, ambiguous, and low-confidence Issues require human review. No response is sent; Issues are not closed, deleted, merged, suspended, or modified.

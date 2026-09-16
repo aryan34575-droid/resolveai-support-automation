@@ -16,6 +16,7 @@ def main() -> int:
     parser.add_argument("--input", help="JSON file; defaults to stdin")
     parser.add_argument("--approved", action="store_true", help="record explicit human approval for safe recommendations")
     parser.add_argument("--github-issues", action="store_true", help="analyze open GitHub Issues using GITHUB_TOKEN")
+    parser.add_argument("--since-days", type=int, default=None, help="only include Issues updated within this many days")
     parser.add_argument("--publish-report-issue", action="store_true", help="create a GitHub report Issue; requires explicit opt-in")
     args = parser.parse_args()
     engine = ResolveAI()
@@ -25,7 +26,7 @@ def main() -> int:
         return 0
     client = GitHubClient(os.getenv("GITHUB_TOKEN"), os.getenv("GITHUB_REPOSITORY"))
     try:
-        issues = client.list_issues()
+        issues = client.list_issues(since_days=args.since_days)
         results = []
         for issue in issues:
             ticket = Ticket.from_dict(client.issue_to_ticket(issue))
@@ -43,7 +44,7 @@ def main() -> int:
         if args.publish_report_issue:
             client.create_report_issue("ResolveAI analysis report", report, explicitly_enabled=True, approved=args.approved)
         print(report)
-    except GitHubAPIError as exc:
+    except (GitHubAPIError, ValueError) as exc:
         print(json.dumps({"status": "github_api_error", "errors": [str(exc)]}))
     return 0
 

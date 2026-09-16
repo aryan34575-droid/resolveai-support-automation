@@ -4,6 +4,7 @@ import json
 import re
 import urllib.error
 import urllib.request
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
 
@@ -39,8 +40,12 @@ class GitHubClient:
             raise GitHubAPIError("GITHUB_REPOSITORY must be owner/name")
         return self.repository
 
-    def list_issues(self, state: str = "open", limit: int = 30) -> List[Dict[str, Any]]:
-        data = self._request("GET", f"/repos/{self._repo_path()}/issues?state={state}&per_page={min(limit, 100)}")
+    def list_issues(self, state: str = "open", limit: int = 30, since_days: int | None = None) -> List[Dict[str, Any]]:
+        query = f"state={state}&sort=updated&direction=desc&per_page={min(limit, 100)}"
+        if since_days is not None:
+            since = datetime.now(timezone.utc) - timedelta(days=max(0, since_days))
+            query += f"&since={since.isoformat().replace('+00:00', 'Z')}"
+        data = self._request("GET", f"/repos/{self._repo_path()}/issues?{query}")
         return [item for item in data if "pull_request" not in item]
 
     @staticmethod

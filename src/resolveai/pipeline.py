@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import json
 from typing import Any, Dict, Optional
 
 from .knowledge import ReferenceStore, synthetic_stores
 from .logging_utils import Stage, get_logger
 from .models import AnalysisResult, Ticket
-from .reporter import render_report
 from .ticket_analyzer import LocalTicketAnalyzer
 
 
@@ -17,38 +17,49 @@ class ResolveAI:
         self.knowledge_store = knowledge_store or default_knowledge
         self.logger = get_logger()
 
+    @staticmethod
+    def _draft(category: object) -> str:
+        return (
+            "AI-generated draft \u2014 human review required.\n"
+            f"Thank you for contacting us. We received your request about {category}. "
+            "A team member will review it and follow up with next steps; this draft does not indicate resolution."
+        )
+
+    @staticmethod
+    def _observed(ticket: Ticket) -> Dict[str, str]:
+        return {
+            "ticket_id": ticket.ticket_id,
+            "customer_message": ticket.customer_message,
+            "created_at": ticket.created_at,
+            "product": ticket.product,
+            "channel": ticket.channel,
+        }
+
     def process(self, raw_ticket: Dict[str, Any], approved: bool = False) -> AnalysisResult:
         ticket_id = raw_ticket.get("ticket_id", "unknown") if isinstance(raw_ticket, dict) else "unknown"
         with Stage(self.logger, str(ticket_id), "validation"):
             ticket = Ticket.from_dict(raw_ticket)
-        with Stage(self.logger, ticket.ticket_id, "ai_classification"):
+        with Stage(self.logger, ticket.ticket_id, "local_classification"):
             values = self.analyzer.analyze(ticket)
         with Stage(self.logger, ticket.ticket_id, "similar_ticket_detection"):
             similar = self.similar_store.search(ticket)
         with Stage(self.logger, ticket.ticket_id, "knowledge_retrieval"):
             knowledge = self.knowledge_store.search(ticket)
-        response = ("AI-generated draft — human review required.\n"
-                    "Thank you for contacting us. We received your request about " + str(values["category"]) +
-                    ". A team member will review it and follow up with next steps; this draft does not indicate resolution.")
         result = AnalysisResult(**values, similar_tickets=similar, knowledge_references=knowledge,
-                                suggested_response=response, observed_ticket={
-                                    "ticket_id": ticket.ticket_id, "customer_message": ticket.customer_message,
-                                    "created_at": ticket.created_at, "product": ticket.product, "channel": ticket.channel})
+                                suggested_response=self._draft(values["category"]),
+                                observed_ticket=self._observed(ticket))
         if approved and not result.human_review_required:
-            result.review_reasons.append("approval recorded; external write still requires an explicitly enabled adapter")
+            result.review_reasons.append("approval recorded; external writes remain disabled by default")
         return result
 
     def process_ticket(self, ticket: Ticket, similar_tickets=None, knowledge_references=None) -> AnalysisResult:
         values = self.analyzer.analyze(ticket)
-        response = ("Thank you for contacting us. We received your request about " + str(values["category"]) +
-                    ". A team member will review it and follow up with next steps; this draft does not indicate resolution.")
-        return AnalysisResult(**values, similar_tickets=similar_tickets or [], knowledge_references=knowledge_references or [],
-                              suggested_response=response, observed_ticket={
-                                  "ticket_id": ticket.ticket_id, "customer_message": ticket.customer_message,
-                                  "created_at": ticket.created_at, "product": ticket.product, "channel": ticket.channel})
+        return AnalysisResult(**values, similar_tickets=similar_tickets or [],
+                              knowledge_references=knowledge_references or [],
+                              suggested_response=self._draft(values["category"]),
+                              observed_ticket=self._observed(ticket))
 
     def process_json(self, raw_json: str, approved: bool = False) -> Dict[str, Any]:
-        import json
         try:
             data = json.loads(raw_json)
         except json.JSONDecodeError as exc:

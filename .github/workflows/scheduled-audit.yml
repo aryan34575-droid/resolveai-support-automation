@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -r requirements.txt
-      - run: python -m src.main --github-issues > resolveai-report.json
+      - run: python -m src.main --github-issues --since-days 7 > resolveai-report.json
       - uses: actions/upload-artifact@v4
         with:
           name: resolveai-scheduled-report
