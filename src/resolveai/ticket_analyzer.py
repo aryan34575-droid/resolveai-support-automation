@@ -7,7 +7,7 @@ from .models import AnalysisResult, Evidence, Ticket
 
 KEYWORDS = {
     "billing": {"bill", "billing", "charge", "charged", "invoice", "payment"},
-    "technical": {"error", "bug", "crash", "broken", "failure", "timeout"},
+    "technical": {"error", "bug", "crash", "broken", "failure", "timeout", "button", "working", "respond", "functionality"},
     "account": {"password", "login", "account", "access", "reset"},
     "product": {"feature", "integration", "configure", "product"},
     "shipping": {"ship", "shipping", "delivery", "package", "tracking", "arrive"},
@@ -26,7 +26,7 @@ class LocalTicketAnalyzer:
         scores = {key: sum(_has(text, word) for word in words) for key, words in KEYWORDS.items()}
         category = max(scores, key=scores.get) if max(scores.values(), default=0) else "other"
         urgent = any(_has(text, word) for word in ("breach", "hacked", "stolen", "unauthorized", "outage", "down"))
-        high = any(_has(text, word) for word in ("blocked", "cannot", "failed", "error", "charged twice"))
+        high = any(_has(text, word) for word in ("blocked", "cannot", "failed", "error", "charged twice", "not working", "does not respond"))
         priority = "urgent" if urgent else "high" if high else "medium" if category != "other" else "low"
         negative = any(_has(text, word) for word in ("angry", "frustrated", "bad", "upset", "broken", "failed"))
         positive = any(_has(text, word) for word in ("thanks", "great", "happy", "appreciate"))
@@ -37,8 +37,8 @@ class LocalTicketAnalyzer:
         if category == "other" or confidence < 0.65:
             evidence.append(Evidence("Insufficient evidence.", "observed ticket.customer_message"))
             reasons.append("limited or ambiguous classification evidence")
-        if urgent or category == "security":
-            reasons.append("urgent or security risk")
+        if priority in ("high", "urgent") or category == "security":
+            reasons.append("high-risk or security-sensitive issue")
         summary = re.sub(r"\s+", " ", ticket.customer_message).strip()[:240]
         return {"ticket_summary": summary, "category": category, "priority": priority, "sentiment": sentiment,
                 "recommended_team": TEAMS[category], "evidence": evidence, "confidence": confidence,

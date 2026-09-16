@@ -11,6 +11,15 @@ def test_classification_priority_and_routing():
     assert result["category"] == "billing"
     assert result["priority"] == "high"
     assert result["recommended_team"] == "Billing"
+    assert result["human_review_required"] is True
+
+
+def test_login_button_failure_routes_to_technical_review():
+    result = LocalTicketAnalyzer().analyze(make("The login button is not working and does not respond."))
+    assert result["category"] == "technical"
+    assert result["priority"] == "high"
+    assert result["recommended_team"] == "Technical Support"
+    assert result["human_review_required"] is True
 
 
 def test_low_confidence_escalates():
