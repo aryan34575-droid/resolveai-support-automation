@@ -25,7 +25,7 @@ Raw GitHub data is kept separate from recommendations. If evidence is insufficie
 
 ## Tech stack and free-first design
 
-Python standard library, JSON, GitHub REST API, the built-in `GITHUB_TOKEN`, and GitHub Actions. No paid service, API key, SaaS account, hosting, or credit card is required. An optional future LLM adapter may be added, but it is not needed by any runnable path.
+Python standard library, JSON, GitHub REST API, the built-in `GITHUB_TOKEN`, and GitHub Actions. No paid service, external AI API, API key, SaaS account, hosting, or credit card is required. All classification and drafting logic runs locally and deterministically.
 
 ## Setup and testing
 
@@ -37,7 +37,7 @@ python -m compileall .
 python -m pytest -q
 ```
 
-`test_data/synthetic_tickets.json` is clearly labelled synthetic and is never presented as company data. GitHub Actions receives the automatic repository-provided `${{ secrets.GITHUB_TOKEN }}`; no manually entered token or repository secret configuration is needed for Actions. Local CLI execution optionally requires a locally exported `GITHUB_TOKEN` and `GITHUB_REPOSITORY`.
+`test_data/synthetic_tickets.json` is clearly labelled synthetic and is never presented as company data. GitHub Actions receives the automatic repository-provided `${{ secrets.GITHUB_TOKEN }}`; no manually entered token or repository secret configuration is needed for Actions. Local GitHub API execution requires authentication supplied by the local environment; this is not needed in GitHub Actions.
 
 ## GitHub Actions and permissions
 
@@ -47,17 +47,18 @@ Run **Actions -> ResolveAI manual test -> Run workflow**, then download the JSON
 
 ## Exact GitHub deployment steps
 
-From an authenticated computer with GitHub CLI installed:
+This repository already exists at `aryan34575-droid/resolveai-support-automation`. From an authenticated computer with GitHub CLI installed, update that repository with:
 
 ```powershell
 gh auth login
-gh repo create resolveai-support-automation --public --description "Free-first AI support-ticket automation system for GitHub Issues with local NLP classification, triage, routing and human approval" --source . --remote origin --push
+git remote set-url origin https://github.com/aryan34575-droid/resolveai-support-automation.git
+git push origin main
 ```
 
-If the repository already exists or `gh` is unavailable:
+If `origin` is not configured:
 
 ```powershell
-git remote add origin https://github.com/<OWNER>/resolveai-support-automation.git
+git remote add origin https://github.com/aryan34575-droid/resolveai-support-automation.git
 git push -u origin main
 ```
 

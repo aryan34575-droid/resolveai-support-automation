@@ -21,7 +21,7 @@ class GitHubClient:
         if not self.token:
             raise GitHubAPIError("Local GitHub API mode requires a GitHub token. GitHub Actions mode requires no manual token.")
         request = urllib.request.Request(self.base_url + path, method=method)
-        request.add_header("Authorization", f"Bearer {self.token}")
+        request.add_header("Authorization", "Bearer " + self.token)
         request.add_header("Accept", "application/vnd.github+json")
         request.add_header("X-GitHub-Api-Version", "2022-11-28")
         if body is not None:

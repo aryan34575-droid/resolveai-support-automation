@@ -27,6 +27,28 @@ def test_malformed_api_response(monkeypatch):
         client.list_issues()
 
 
+def test_github_token_is_sent_as_bearer(monkeypatch):
+    captured = {}
+
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return b"[]"
+
+    def request(url, **kwargs):
+        captured["request"] = url
+        return Response()
+
+    monkeypatch.setattr("urllib.request.urlopen", request)
+    GitHubClient("secret-token", "owner/repo").list_issues()
+    assert captured["request"].headers["Authorization"] == "Bearer secret-token"
+
+
 def test_process_json_malformed_and_secret_not_in_observed():
     assert ResolveAI().process_json("{bad")["status"] == "invalid"
     data = ResolveAI().process_json('{"ticket_id":"T","customer_message":"help","created_at":"2026-01-01T00:00:00Z","product":"P","channel":"email","api_key":"secret"}')
