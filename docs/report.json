@@ -1,8 +1,8 @@
 {
   "tool": "ResolveAI",
   "report_type": "public_dashboard",
-  "safety": "ResolveAI analysis — read-only",
-  "last_analysis": null,
+  "safety": "ResolveAI analysis \u2014 read-only",
+  "last_analysis": "2026-09-16T06:26:34.142310+00:00",
   "summary": {
     "issues_analyzed": 0,
     "high_or_urgent": 0,
