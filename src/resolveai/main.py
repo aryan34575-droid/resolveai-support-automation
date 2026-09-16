@@ -8,7 +8,7 @@ import sys
 from .github_client import GitHubClient, GitHubAPIError
 from .models import Reference, Ticket
 from .pipeline import ResolveAI
-from .reporter import render_report
+from .reporter import render_public_report, render_report
 
 
 def main() -> int:
@@ -16,6 +16,7 @@ def main() -> int:
     parser.add_argument("--input", help="JSON file; defaults to stdin")
     parser.add_argument("--github-issues", action="store_true", help="analyze open GitHub Issues; token optional for public repositories")
     parser.add_argument("--since-days", type=int, default=None, help="only include Issues updated within this many days")
+    parser.add_argument("--public-report", action="store_true", help="emit a dashboard-safe report without ticket content")
     args = parser.parse_args()
     engine = ResolveAI()
     if not args.github_issues:
@@ -38,7 +39,7 @@ def main() -> int:
                 "url": issue.get("html_url"),
             })
             results.append(result)
-        report = render_report(results)
+        report = render_public_report(results) if args.public_report else render_report(results)
         print(report)
     except (GitHubAPIError, ValueError) as exc:
         print(json.dumps({"status": "github_api_error", "errors": [str(exc)]}))

@@ -1,0 +1,56 @@
+name: ResolveAI dashboard
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened, edited, reopened]
+  schedule:
+    - cron: "30 6 * * 1"
+
+permissions:
+  contents: write
+  issues: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: resolveai-dashboard
+  cancel-in-progress: true
+
+jobs:
+  analyze-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - run: python -m compileall .
+      - run: python -m pytest -q
+      - name: Analyze Issues into safe public report
+        run: python -m src.main --github-issues --since-days 30 --public-report > docs/report.json
+      - name: Persist safe report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/report.json
+          if git diff --cached --quiet; then
+            echo "Report unchanged"
+          else
+            git commit -m "chore: refresh ResolveAI dashboard report"
+            git push
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+      - name: Deploy dashboard
+        id: deployment
+        uses: actions/deploy-pages@v4

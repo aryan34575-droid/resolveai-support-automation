@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ResolveAI read-only GitHub Issue triage dashboard">
+  <title>ResolveAI | Support intelligence</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">R</span><div><strong>ResolveAI</strong><small>Support intelligence</small></div></div>
+    <span class="status-pill">ResolveAI analysis — read-only</span>
+  </header>
+  <main class="shell">
+    <section class="hero"><div><p class="eyebrow">OPERATIONS OVERVIEW</p><h1>Issue triage, clearly surfaced.</h1><p class="muted">Local deterministic analysis of GitHub Issues. Recommendations stay separate from observed data and require human review where indicated.</p></div><div class="last-analysis"><span>Last analysis</span><strong id="last-analysis">Loading…</strong></div></section>
+    <section class="metric-grid">
+      <article class="metric-card"><span>Issues analyzed</span><strong id="issues-analyzed">—</strong><small>Current report</small></article>
+      <article class="metric-card accent"><span>High / urgent</span><strong id="high-urgent">—</strong><small>Priority attention</small></article>
+      <article class="metric-card warning"><span>Human review required</span><strong id="human-review">—</strong><small>Approval remains mandatory</small></article>
+    </section>
+    <section class="grid-2">
+      <article class="panel"><div class="panel-heading"><h2>Category distribution</h2></div><div id="categories" class="bars"></div></article>
+      <article class="panel"><div class="panel-heading"><h2>Priority distribution</h2></div><div id="priorities" class="bars"></div></article>
+      <article class="panel"><div class="panel-heading"><h2>Sentiment</h2></div><div id="sentiments" class="bars"></div></article>
+      <article class="panel"><div class="panel-heading"><h2>Recommended teams</h2></div><div id="teams" class="bars"></div></article>
+    </section>
+    <section class="panel"><div class="panel-heading"><div><p class="eyebrow">WORK QUEUE</p><h2>Recent analyzed Issues</h2></div><span class="muted">Public-safe view</span></div><div id="issues" class="issue-list"></div></section>
+    <p id="error" class="error" hidden>Report unavailable. The next GitHub Actions run will refresh this dashboard.</p>
+  </main>
+  <footer>Independent portfolio project · Synthetic data is used for testing · No production usage is claimed</footer>
+  <script src="app.js"></script>
+</body>
+</html>

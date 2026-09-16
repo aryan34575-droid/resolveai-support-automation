@@ -1,0 +1,18 @@
+{
+  "tool": "ResolveAI",
+  "report_type": "public_dashboard",
+  "safety": "ResolveAI analysis — read-only",
+  "last_analysis": null,
+  "summary": {
+    "issues_analyzed": 0,
+    "high_or_urgent": 0,
+    "human_review_required": 0
+  },
+  "distributions": {
+    "categories": {},
+    "priorities": {},
+    "sentiments": {},
+    "teams": {}
+  },
+  "results": []
+}
