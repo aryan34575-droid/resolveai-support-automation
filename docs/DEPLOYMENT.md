@@ -8,4 +8,4 @@
 6. Download the completed `resolveai-manual-report` artifact.
 7. Leave Actions enabled for the weekly scheduled workflow.
 
-No paid hosting, paid API, paid SaaS, external model key, or credit card is required. The built-in `GITHUB_TOKEN` is automatic. If a run fails, verify permissions, confirm open Issues exist, and inspect the redacted API error in the failed step.
+No paid hosting, paid API, paid SaaS, external model key, or credit card is required. GitHub Actions automatically exposes the repository token through `${{ secrets.GITHUB_TOKEN }}`; no manually entered token is required for workflow execution. If a run fails, verify permissions, confirm open Issues exist, and inspect the redacted API error in the failed step.
