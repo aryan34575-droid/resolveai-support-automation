@@ -45,6 +45,14 @@ python -m pytest -q
 
 Run **Actions -> ResolveAI manual test -> Run workflow**, then download the JSON artifact. Leave Actions enabled for weekly execution. See `docs/DEPLOYMENT.md`.
 
+## Web dashboard
+
+The static dashboard is published through GitHub Pages:
+
+https://aryan34575-droid.github.io/resolveai-support-automation/
+
+`dashboard.yml` runs on manual dispatch, weekly schedule, and Issue opened/edited/reopened events. It analyzes Issues, writes a sanitized `docs/report.json`, and deploys `docs/` through Pages. The public report excludes Issue bodies, customer messages, labels, and credentials. The dashboard is informational only; it does not call GitHub APIs from browser code.
+
 ## Exact GitHub deployment steps
 
 This repository already exists at `aryan34575-droid/resolveai-support-automation`. From an authenticated computer with GitHub CLI installed, update that repository with:
@@ -62,7 +70,7 @@ git remote add origin https://github.com/aryan34575-droid/resolveai-support-auto
 git push -u origin main
 ```
 
-Then enable Actions, confirm `contents: read` and `issues: read` under repository workflow permissions, run **Actions -> ResolveAI manual test -> Run workflow**, and download `resolveai-manual-report`. Verify the report contains Issue observations and separate recommendations. Leave Actions enabled and verify the weekly scheduled run under the Actions tab.
+Then enable Actions, run **Actions -> ResolveAI manual test -> Run workflow**, and download `resolveai-manual-report`. The dashboard workflow requires `issues: read`, `contents: write` to persist the sanitized report, and Pages deployment permissions (`pages: write` and `id-token: write`). Verify the report contains only public-safe observations and recommendations. Leave Actions enabled and verify the weekly scheduled run under the Actions tab.
 
 ## Security and limitations
 
