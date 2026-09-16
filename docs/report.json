@@ -2,18 +2,18 @@
   "tool": "ResolveAI",
   "report_type": "public_dashboard",
   "safety": "ResolveAI analysis \u2014 read-only",
-  "generated_at": "2026-09-16T06:35:37.713155+00:00",
-  "last_analysis": "2026-09-16T06:35:37.713166+00:00",
+  "generated_at": "2026-09-16T06:37:00.758537+00:00",
+  "last_analysis": "2026-09-16T06:37:00.758548+00:00",
   "repository": "aryan34575-droid/resolveai-support-automation",
   "status": "analysis_complete",
   "summary": {
     "issues_analyzed": 1,
     "high_or_urgent": 1,
-    "human_review_required": 0
+    "human_review_required": 1
   },
   "distributions": {
     "categories": {
-      "account": 1
+      "technical": 1
     },
     "priorities": {
       "high": 1
@@ -22,15 +22,15 @@
       "neutral": 1
     },
     "teams": {
-      "Account Support": 1
+      "Technical Support": 1
     }
   },
   "total_issues": 1,
   "high_priority_count": 1,
   "urgent_count": 0,
-  "human_review_count": 0,
+  "human_review_count": 1,
   "category_summary": {
-    "account": 1
+    "technical": 1
   },
   "priority_summary": {
     "high": 1
@@ -39,7 +39,7 @@
     "neutral": 1
   },
   "team_summary": {
-    "Account Support": 1
+    "Technical Support": 1
   },
   "results": [
     {
@@ -47,19 +47,33 @@
       "issue_label": "Issue #1",
       "title": "[SYNTHETIC TEST] Login button is not working",
       "url": "https://github.com/aryan34575-droid/resolveai-support-automation/issues/1",
-      "category": "account",
+      "category": "technical",
       "priority": "high",
       "sentiment": "neutral",
-      "recommended_team": "Account Support",
+      "recommended_team": "Technical Support",
       "similar_tickets": [],
       "knowledge_references": [],
-      "suggested_response": "AI-generated draft \u2014 human review required.\nThank you for contacting us. We received your request about account. A team member will review it and follow up with next steps; this draft does not indicate resolution.",
-      "confidence": 0.65,
-      "human_review_required": false,
-      "review_reasons": [],
+      "suggested_response": "AI-generated draft \u2014 human review required.\nThank you for contacting us. We received your request about technical. A team member will review it and follow up with next steps; this draft does not indicate resolution.",
+      "confidence": 0.95,
+      "human_review_required": true,
+      "review_reasons": [
+        "high-risk or security-sensitive issue"
+      ],
       "evidence": [
         {
-          "statement": "matched 'login'",
+          "statement": "matched 'functionality'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'respond'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'working'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'button'",
           "source": "observed ticket.customer_message"
         }
       ]
@@ -71,19 +85,33 @@
       "issue_label": "Issue #1",
       "title": "[SYNTHETIC TEST] Login button is not working",
       "url": "https://github.com/aryan34575-droid/resolveai-support-automation/issues/1",
-      "category": "account",
+      "category": "technical",
       "priority": "high",
       "sentiment": "neutral",
-      "recommended_team": "Account Support",
+      "recommended_team": "Technical Support",
       "similar_tickets": [],
       "knowledge_references": [],
-      "suggested_response": "AI-generated draft \u2014 human review required.\nThank you for contacting us. We received your request about account. A team member will review it and follow up with next steps; this draft does not indicate resolution.",
-      "confidence": 0.65,
-      "human_review_required": false,
-      "review_reasons": [],
+      "suggested_response": "AI-generated draft \u2014 human review required.\nThank you for contacting us. We received your request about technical. A team member will review it and follow up with next steps; this draft does not indicate resolution.",
+      "confidence": 0.95,
+      "human_review_required": true,
+      "review_reasons": [
+        "high-risk or security-sensitive issue"
+      ],
       "evidence": [
         {
-          "statement": "matched 'login'",
+          "statement": "matched 'functionality'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'respond'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'working'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'button'",
           "source": "observed ticket.customer_message"
         }
       ]
