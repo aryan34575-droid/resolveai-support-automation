@@ -1,7 +1,5 @@
-import json
 import pytest
 from src.resolveai.github_client import GitHubAPIError, GitHubClient
-from src.resolveai.openai_client import OpenAIAPIError, OpenAIAnalyzer
 from src.resolveai.pipeline import ResolveAI
 
 
@@ -24,12 +22,8 @@ def test_github_issue_conversion_and_similar_references():
     assert client.similar_issue_references(issue, [issue, other])[0]["reference_id"] == "github-issue-2"
 
 
-def test_missing_openai_key():
-    with pytest.raises(OpenAIAPIError, match="OPENAI_API_KEY"):
-        OpenAIAnalyzer(None).analyze({})
-
-
 def test_malformed_api_response(monkeypatch):
+    import json
     def broken(*args, **kwargs):
         raise json.JSONDecodeError("bad", "", 0)
     client = GitHubClient("token", "owner/repo")

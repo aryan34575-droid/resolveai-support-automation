@@ -37,7 +37,7 @@ python -m compileall .
 python -m pytest -q
 ```
 
-`test_data/synthetic_tickets.json` is clearly labelled synthetic and is never presented as company data. To analyze a configured repository locally, set `GITHUB_TOKEN` and `GITHUB_REPOSITORY`, then run `python -m src.main --github-issues`.
+`test_data/synthetic_tickets.json` is clearly labelled synthetic and is never presented as company data. To analyze a configured repository locally, set `GITHUB_TOKEN` and `GITHUB_REPOSITORY`, then run `python -m src.main --github-issues`. GitHub Actions uses the built-in `${{ github.token }}` context; no repository secret is needed.
 
 ## GitHub Actions and permissions
 

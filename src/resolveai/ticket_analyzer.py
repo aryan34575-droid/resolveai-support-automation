@@ -35,6 +35,7 @@ class LocalTicketAnalyzer:
         confidence = round(min(0.98, 0.55 + min(len(evidence), 4) * 0.1), 2) if category != "other" else 0.35
         reasons = []
         if category == "other" or confidence < 0.65:
+            evidence.append(Evidence("Insufficient evidence.", "observed ticket.customer_message"))
             reasons.append("limited or ambiguous classification evidence")
         if urgent or category == "security":
             reasons.append("urgent or security risk")

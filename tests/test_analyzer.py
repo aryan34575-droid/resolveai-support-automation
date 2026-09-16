@@ -14,7 +14,9 @@ def test_classification_priority_and_routing():
 
 
 def test_low_confidence_escalates():
-    assert LocalTicketAnalyzer().analyze(make("Something happened."))["human_review_required"] is True
+    result = LocalTicketAnalyzer().analyze(make("Something happened."))
+    assert result["human_review_required"] is True
+    assert any(item.statement == "Insufficient evidence." for item in result["evidence"])
 
 
 def test_security_escalates():
