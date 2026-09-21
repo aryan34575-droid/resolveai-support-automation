@@ -2,8 +2,8 @@
   "tool": "ResolveAI",
   "report_type": "public_dashboard",
   "safety": "ResolveAI analysis \u2014 read-only",
-  "generated_at": "2026-09-16T06:37:00.758537+00:00",
-  "last_analysis": "2026-09-16T06:37:00.758548+00:00",
+  "generated_at": "2026-09-21T13:12:56.816465+00:00",
+  "last_analysis": "2026-09-21T13:12:56.816477+00:00",
   "repository": "aryan34575-droid/resolveai-support-automation",
   "status": "analysis_complete",
   "summary": {
@@ -61,7 +61,7 @@
       ],
       "evidence": [
         {
-          "statement": "matched 'functionality'",
+          "statement": "matched 'working'",
           "source": "observed ticket.customer_message"
         },
         {
@@ -69,7 +69,7 @@
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'working'",
+          "statement": "matched 'functionality'",
           "source": "observed ticket.customer_message"
         },
         {
@@ -99,7 +99,7 @@
       ],
       "evidence": [
         {
-          "statement": "matched 'functionality'",
+          "statement": "matched 'working'",
           "source": "observed ticket.customer_message"
         },
         {
@@ -107,7 +107,7 @@
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'working'",
+          "statement": "matched 'functionality'",
           "source": "observed ticket.customer_message"
         },
         {
