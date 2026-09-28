@@ -2,8 +2,8 @@
   "tool": "ResolveAI",
   "report_type": "public_dashboard",
   "safety": "ResolveAI analysis \u2014 read-only",
-  "generated_at": "2026-09-21T13:12:56.816465+00:00",
-  "last_analysis": "2026-09-21T13:12:56.816477+00:00",
+  "generated_at": "2026-09-28T14:21:33.271029+00:00",
+  "last_analysis": "2026-09-28T14:21:33.271040+00:00",
   "repository": "aryan34575-droid/resolveai-support-automation",
   "status": "analysis_complete",
   "summary": {
@@ -61,11 +61,7 @@
       ],
       "evidence": [
         {
-          "statement": "matched 'working'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'respond'",
+          "statement": "matched 'button'",
           "source": "observed ticket.customer_message"
         },
         {
@@ -73,7 +69,11 @@
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'button'",
+          "statement": "matched 'respond'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'working'",
           "source": "observed ticket.customer_message"
         }
       ]
@@ -99,11 +99,7 @@
       ],
       "evidence": [
         {
-          "statement": "matched 'working'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'respond'",
+          "statement": "matched 'button'",
           "source": "observed ticket.customer_message"
         },
         {
@@ -111,7 +107,11 @@
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'button'",
+          "statement": "matched 'respond'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'working'",
           "source": "observed ticket.customer_message"
         }
       ]
