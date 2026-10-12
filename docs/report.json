@@ -2,8 +2,8 @@
   "tool": "ResolveAI",
   "report_type": "public_dashboard",
   "safety": "ResolveAI analysis \u2014 read-only",
-  "generated_at": "2026-10-05T15:10:48.916615+00:00",
-  "last_analysis": "2026-10-05T15:10:48.916626+00:00",
+  "generated_at": "2026-10-12T15:56:46.815966+00:00",
+  "last_analysis": "2026-10-12T15:56:46.815977+00:00",
   "repository": "aryan34575-droid/resolveai-support-automation",
   "status": "analysis_complete",
   "summary": {
@@ -61,19 +61,19 @@
       ],
       "evidence": [
         {
-          "statement": "matched 'button'",
-          "source": "observed ticket.customer_message"
-        },
-        {
           "statement": "matched 'working'",
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'functionality'",
+          "statement": "matched 'respond'",
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'respond'",
+          "statement": "matched 'button'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'functionality'",
           "source": "observed ticket.customer_message"
         }
       ]
@@ -99,19 +99,19 @@
       ],
       "evidence": [
         {
-          "statement": "matched 'button'",
-          "source": "observed ticket.customer_message"
-        },
-        {
           "statement": "matched 'working'",
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'functionality'",
+          "statement": "matched 'respond'",
           "source": "observed ticket.customer_message"
         },
         {
-          "statement": "matched 'respond'",
+          "statement": "matched 'button'",
+          "source": "observed ticket.customer_message"
+        },
+        {
+          "statement": "matched 'functionality'",
           "source": "observed ticket.customer_message"
         }
       ]
