@@ -2,119 +2,29 @@
   "tool": "ResolveAI",
   "report_type": "public_dashboard",
   "safety": "ResolveAI analysis \u2014 read-only",
-  "generated_at": "2026-10-12T15:56:46.815966+00:00",
-  "last_analysis": "2026-10-12T15:56:46.815977+00:00",
+  "generated_at": "2026-10-19T13:49:41.350809+00:00",
+  "last_analysis": "2026-10-19T13:49:41.350823+00:00",
   "repository": "aryan34575-droid/resolveai-support-automation",
   "status": "analysis_complete",
   "summary": {
-    "issues_analyzed": 1,
-    "high_or_urgent": 1,
-    "human_review_required": 1
+    "issues_analyzed": 0,
+    "high_or_urgent": 0,
+    "human_review_required": 0
   },
   "distributions": {
-    "categories": {
-      "technical": 1
-    },
-    "priorities": {
-      "high": 1
-    },
-    "sentiments": {
-      "neutral": 1
-    },
-    "teams": {
-      "Technical Support": 1
-    }
+    "categories": {},
+    "priorities": {},
+    "sentiments": {},
+    "teams": {}
   },
-  "total_issues": 1,
-  "high_priority_count": 1,
+  "total_issues": 0,
+  "high_priority_count": 0,
   "urgent_count": 0,
-  "human_review_count": 1,
-  "category_summary": {
-    "technical": 1
-  },
-  "priority_summary": {
-    "high": 1
-  },
-  "sentiment_summary": {
-    "neutral": 1
-  },
-  "team_summary": {
-    "Technical Support": 1
-  },
-  "results": [
-    {
-      "issue_number": 1,
-      "issue_label": "Issue #1",
-      "title": "[SYNTHETIC TEST] Login button is not working",
-      "url": "https://github.com/aryan34575-droid/resolveai-support-automation/issues/1",
-      "category": "technical",
-      "priority": "high",
-      "sentiment": "neutral",
-      "recommended_team": "Technical Support",
-      "similar_tickets": [],
-      "knowledge_references": [],
-      "suggested_response": "AI-generated draft \u2014 human review required.\nThank you for contacting us. We received your request about technical. A team member will review it and follow up with next steps; this draft does not indicate resolution.",
-      "confidence": 0.95,
-      "human_review_required": true,
-      "review_reasons": [
-        "high-risk or security-sensitive issue"
-      ],
-      "evidence": [
-        {
-          "statement": "matched 'working'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'respond'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'button'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'functionality'",
-          "source": "observed ticket.customer_message"
-        }
-      ]
-    }
-  ],
-  "issues": [
-    {
-      "issue_number": 1,
-      "issue_label": "Issue #1",
-      "title": "[SYNTHETIC TEST] Login button is not working",
-      "url": "https://github.com/aryan34575-droid/resolveai-support-automation/issues/1",
-      "category": "technical",
-      "priority": "high",
-      "sentiment": "neutral",
-      "recommended_team": "Technical Support",
-      "similar_tickets": [],
-      "knowledge_references": [],
-      "suggested_response": "AI-generated draft \u2014 human review required.\nThank you for contacting us. We received your request about technical. A team member will review it and follow up with next steps; this draft does not indicate resolution.",
-      "confidence": 0.95,
-      "human_review_required": true,
-      "review_reasons": [
-        "high-risk or security-sensitive issue"
-      ],
-      "evidence": [
-        {
-          "statement": "matched 'working'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'respond'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'button'",
-          "source": "observed ticket.customer_message"
-        },
-        {
-          "statement": "matched 'functionality'",
-          "source": "observed ticket.customer_message"
-        }
-      ]
-    }
-  ]
+  "human_review_count": 0,
+  "category_summary": {},
+  "priority_summary": {},
+  "sentiment_summary": {},
+  "team_summary": {},
+  "results": [],
+  "issues": []
 }
